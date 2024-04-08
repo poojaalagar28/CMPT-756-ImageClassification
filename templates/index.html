@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification App</title>
+</head>
+<body>
+    <h1>Image Classification</h1>
+    <form action="/classify" method="post" enctype="multipart/form-data">
+        <label for="network">Select the Model:</label>
+        <select name="network" id="network">
+            <option value="VGG16">VGG16</option>
+            <option value="VGG19">VGG19</option>
+            <option value="Inception">Inception</option>
+            <option value="Xception">Xception</option>
+            <option value="ResNet">ResNet</option>
+        </select>
+        <br><br>
+        <label for="file">Choose an image to classify:</label>
+        <input type="file" name="file" id="file">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
