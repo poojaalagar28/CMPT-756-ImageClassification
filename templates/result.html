@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification Result</title>
+</head>
+<body>
+    <h1>Image Classification Result</h1>
+    <img src="{{ url_for('uploaded_file', filename='image.jpg') }}" alt="Uploaded Image" width="300">
+    <p>{{ label }} {{ prob }}</p>
+    <h2>Top Predictions from {{ network }}</h2>
+    <table>
+        <tr>
+            <th>Classification</th>
+            <th>Confidence</th>
+        </tr>
+        {% for pred in predictions[0] %}
+        <tr>
+            <td>{{ pred[1] }}</td>
+            <td>{{ pred[2]*100 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
