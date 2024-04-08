@@ -1,0 +1,9 @@
+requests
+Pillow
+streamlit
+numpy
+opencv_contrib_python
+tensorflow
+pandas
+protobuf>=3.19.0,<4.0
+flask
