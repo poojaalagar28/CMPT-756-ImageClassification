@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imgclassification
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: imgclassification
+  template:
+    metadata:
+      labels:
+        app: imgclassification
+    spec:
+      containers:
+      - name: ic-container
+        image: us-west3-docker.pkg.dev/paa63-414501/cloud-run-source-deploy/cmpt-756-imageclassification/cmpt-756-imageclassification:d25927684664d631f9c2c8ac5f44b33cf947133e
+        ports:
+        - containerPort: 5000
