@@ -13,34 +13,34 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/classify', methods=['POST'])
-def classify():
-    models = {
+models = {
         "VGG16": VGG16,
         "VGG19": VGG19,
         "Inception": InceptionV3,
         "Xception": Xception,
         "ResNet": ResNet50,
     }
+network = request.form['network']
+file = request.files['file']
+bytes_data = file.read()
 
-    network = request.form['network']
-    file = request.files['file']
-    bytes_data = file.read()
+input_shape = (224, 224)
+preprocess = imagenet_utils.preprocess_input
 
-    input_shape = (224, 224)
-    preprocess = imagenet_utils.preprocess_input
+if network in ("Inception", "Xception"):
+    input_shape = (299, 299)
+    preprocess = preprocess_input
 
-    if network in ("Inception", "Xception"):
-        input_shape = (299, 299)
-        preprocess = preprocess_input
+Network = models[network]
+model = Network(weights="imagenet")
 
-    Network = models[network]
-    model = Network(weights="imagenet")
+@app.route('/')
+def home():
+    return render_template('index.html')
 
+@app.route('/classify', methods=['POST'])
+def classify():
+    global model
     image = Image.open(BytesIO(bytes_data))
     image = image.convert("RGB")
     image = image.resize(input_shape)
