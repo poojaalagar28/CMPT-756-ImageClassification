@@ -15,4 +15,5 @@ spec:
       containers:
       - name: ic-container
         image: us-west3-docker.pkg.dev/paa63-414501/cloud-run-source-deploy/cmpt-756-imageclassification/cmpt-756-imageclassification:4a550b68fe4aa1820807d7c66806a96fd05d84cc
+        ports:
         - containerPort: 5000
