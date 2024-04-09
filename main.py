@@ -13,26 +13,29 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-models = {
-        "VGG16": VGG16,
-        "VGG19": VGG19,
-        "Inception": InceptionV3,
-        "Xception": Xception,
-        "ResNet": ResNet50,
-    }
-network = request.form['network']
-file = request.files['file']
-bytes_data = file.read()
+model = ResNet50(weights="imagenet")
 
-input_shape = (224, 224)
-preprocess = imagenet_utils.preprocess_input
+# models = {
+#         "VGG16": VGG16,
+#         "VGG19": VGG19,
+#         "Inception": InceptionV3,
+#         "Xception": Xception,
+#         "ResNet": ResNet50,
+#     }
 
-if network in ("Inception", "Xception"):
-    input_shape = (299, 299)
-    preprocess = preprocess_input
+# network = request.form['network']
+# file = request.files['file']
+# bytes_data = file.read()
 
-Network = models[network]
-model = Network(weights="imagenet")
+# input_shape = (224, 224)
+# preprocess = imagenet_utils.preprocess_input
+
+# if network in ("Inception", "Xception"):
+#     input_shape = (299, 299)
+#     preprocess = preprocess_input
+
+# Network = models[network]
+# model = Network(weights="imagenet")
 
 @app.route('/')
 def home():
@@ -41,6 +44,13 @@ def home():
 @app.route('/classify', methods=['POST'])
 def classify():
     global model
+
+    file = request.files['file']
+    bytes_data = file.read()
+
+    input_shape = (224, 224)
+    preprocess = imagenet_utils.preprocess_input
+        
     image = Image.open(BytesIO(bytes_data))
     image = image.convert("RGB")
     image = image.resize(input_shape)
@@ -57,11 +67,13 @@ def classify():
     with open(filename, 'wb') as f:
         f.write(bytes_data)
 
-    return render_template('result.html', label=label, prob=prob*100, network=network, predictions=predictions)
+    return render_template('result.html', label=label, prob=prob*100)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
     app.run(debug=True, port=5000)
