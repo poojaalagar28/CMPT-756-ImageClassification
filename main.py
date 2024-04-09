@@ -9,48 +9,26 @@ from PIL import Image
 from io import BytesIO
 import os
 
-app = Flask(__name__)
+app = Flask(_name_)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-model = ResNet50(weights="imagenet")
-
-# models = {
-#         "VGG16": VGG16,
-#         "VGG19": VGG19,
-#         "Inception": InceptionV3,
-#         "Xception": Xception,
-#         "ResNet": ResNet50,
-#     }
-
-# network = request.form['network']
-# file = request.files['file']
-# bytes_data = file.read()
-
-# input_shape = (224, 224)
-# preprocess = imagenet_utils.preprocess_input
-
-# if network in ("Inception", "Xception"):
-#     input_shape = (299, 299)
-#     preprocess = preprocess_input
-
-# Network = models[network]
-# model = Network(weights="imagenet")
-
 @app.route('/')
 def home():
+
     return render_template('index.html')
+
+model = ResNet50(weights="imagenet")
 
 @app.route('/classify', methods=['POST'])
 def classify():
-    global model
 
     file = request.files['file']
     bytes_data = file.read()
 
     input_shape = (224, 224)
     preprocess = imagenet_utils.preprocess_input
-        
+
     image = Image.open(BytesIO(bytes_data))
     image = image.convert("RGB")
     image = image.resize(input_shape)
@@ -67,13 +45,11 @@ def classify():
     with open(filename, 'wb') as f:
         f.write(bytes_data)
 
-    return render_template('result.html', label=label, prob=prob*100)
+    return render_template('result.html', label=label, prob=prob*100, predictions=predictions)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-if __name__ == '__main__':
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.makedirs(UPLOAD_FOLDER)
+if _name_ == '_main_':
     app.run(debug=True, port=5000)
