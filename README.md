@@ -15,8 +15,8 @@ This application allows you to classify images using state-of-the-art deep learn
 1. Clone this repository to your local machine. 🖥️
 2. Navigate to the project directory in your terminal.
 3. Install the required dependencies by running: `pip install -r requirements.txt`. 🛠️
-4. Run the Python Flask app using the command: `flask run frontend.py`. 🏃 (CHANGE THIS)
-5. Access the app in your web browser at `http://localhost:8501`. 🌐
+4. Run the Flask app using the command: python main.py.
+5. Access the app in your web browser at http://localhost:5000.
 
 ### Docker containerization
 
@@ -41,3 +41,24 @@ This application allows you to classify images using state-of-the-art deep learn
 ## Example
 
 Suppose you upload an image of a dog. The app will predict that the image contains a "golden retriever" with a confidence score of 0.8 (80%). Additionally, it will suggest other possible labels and their confidence scores.
+
+### GCP Deployment (GKE - Serverful)
+
+1. Prerequisites:
+
+2. Download and install the gcloud CLI.
+Install and set up kubectl with your GKE cluster. Instructions can be found in GCP documentation.
+Create a repository in the Artifact Registry in GCP.
+
+3. Create GKE cluster:
+   `gcloud container clusters create-auto <cluster_name> --region <region_name>`
+
+4. Build and push images to GCP Artifact Registry. Replace <region_name>, <project_name>, and <artifactory_repo_name> accordingly.
+
+5. Deploy services using kubectl:
+
+Access the app by visiting the 'EXTERNAL IP' in your web browser.
+
+### GCP Deployment (Cloud Run - Serverless)
+
+
