@@ -51,14 +51,14 @@ Install and set up kubectl with your GKE cluster. Instructions can be found in G
 Create a repository in the Artifact Registry in GCP.
 
 3. Create GKE cluster:
-   `gcloud container clusters create-auto <cluster_name> --region <region_name>`
+   ```gcloud container clusters create-auto <cluster_name> --region <region_name>```
 
 4. Build and push images to GCP Artifact Registry. Replace <region_name>, <project_name>, and <artifactory_repo_name> accordingly.
 
 5. Deploy services using kubectl:
-   `kubectl apply -f deployment.yaml
-   kubectl apply -f service.yaml
-   `
+   ```kubectl apply -f deployment.yaml
+    kubectl apply -f service.yaml
+   ```
    Access the app by visiting the 'EXTERNAL IP' in your web browser.
 
 ### GCP Deployment (Cloud Run - Serverless)
