@@ -46,26 +46,31 @@ Suppose you upload an image of a dog. The app will predict that the image contai
 
 1. Prerequisites:
 
-2. Download and install the gcloud CLI.
-Install and set up kubectl with your GKE cluster. Instructions can be found in GCP documentation.
+Download and install the gcloud CLI.
+Create GKE cluster with default settings for testing purpose.
+Install and set up kubectl with GKE cluster. Instructions can be found in GCP documentation.
 Create a repository in the Artifact Registry in GCP.
 
-3. Create GKE cluster:
+2. Create GKE cluster:
    ```gcloud container clusters create-auto <cluster_name> --region <region_name>```
 
-4. Build and push images to GCP Artifact Registry. Replace <region_name>, <project_name>, and <artifactory_repo_name> accordingly.
+3. Build and push images to GCP Artifact Registry. Replace <region_name>, <project_name>, and <artifactory_repo_name> accordingly.
 
-5. Deploy services using kubectl:
+4. Deploy services using kubectl:
    ```kubectl apply -f deployment.yaml```
    ```kubectl apply -f service.yaml```
    
-   Access the app by visiting the 'EXTERNAL IP' in your web browser.
+5. Access the app by visiting the 'EXTERNAL IP' in your web browser.
 
 ### GCP Deployment (Cloud Run - Serverless)
 
-1. Build and push the Docker image using the configuration in your cloudbuild.yaml.
-
-2. Deploy to Cloud Run: Use the gcloud commands in your cloudbuild.yaml to deploy your service.
+1. Integrate Google Cloud Build in GitHub configurations.
    
-3. Access the app by visiting the service URL provided by Cloud Run.
+2. In GCP, configure the Cloud Build with a trigger to act based on github push.
+   
+3. Create Cloud Run service with default settings for testing purpose.
+
+4. Deploy to Cloud Run: Use the gcloud commands in your cloudbuild.yaml to deploy your service.
+   
+5. Access the app by visiting the service URL provided by Cloud Run.
 
