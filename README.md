@@ -1,13 +1,12 @@
 # Image Classification App 🖼️🔍
 
-This application allows you to classify images using state-of-the-art deep learning models. Upload an image, select a model, and the app will predict the most likely labels for the image!
+This application allows you to classify images using state-of-the-art deep learning models. Upload an image and the app will predict the most likely labels for the image!
 
 ## How it works
 
-1. **Select Model**: Choose one of the available deep learning models from the sidebar.
-2. **Upload Image**: Upload an image file (JPEG, JPG, or PNG) that you want to classify.
-3. **Image Classification**: The app will use the selected model to predict the labels for the uploaded image.
-4. **Display Results**: The top predicted labels along with their confidence scores are displayed, along with the image.
+1. **Upload Image**: Upload an image file (JPEG, JPG, or PNG) that you want to classify.
+2. **Image Classification**: The app will use the RESNET50 model to predict the labels for the uploaded image.
+3. **Display Results**: The top predicted labels along with their confidence scores are displayed, along with the image.
 
 ## How to use
 
@@ -32,21 +31,13 @@ This application allows you to classify images using state-of-the-art deep learn
 2. **Run Docker Container**:
    - Once the Docker image is built successfully, you can run a Docker container using the following command:
      ```
-     docker run -p 8501:8501 image-classification-app:latest
+     docker run -p 5000:5000 image-classification-app:latest
      ```
-   - This command will start a Docker container based on the `image-classification-app` image and map port 8501 on your local machine to port 8501 in the container.
+   - This command will start a Docker container based on the `image-classification-app` image and map port 5000 on your local machine to port 5000 in the container.
 
 3. **Access the App**:
-   - Open your web browser and navigate to `http://localhost:8501` to access the Image Classification App running inside the Docker container. 🚢
-
-## Available Models
-
-- **VGG16**
-- **VGG19**
-- **Inception**
-- **Xception**
-- **ResNet**
+   - Open your web browser and navigate to `http://localhost:5000` to access the Image Classification App running inside the Docker container. 🚢
 
 ## Example
 
-Suppose you upload an image of a dog. If you select the VGG16 model, the app might predict that the image contains a "golden retriever" with a confidence score of 0.8 (80%). Additionally, it may suggest other possible labels and their confidence scores.
+Suppose you upload an image of a dog. The app will predict that the image contains a "golden retriever" with a confidence score of 0.8 (80%). Additionally, it will suggest other possible labels and their confidence scores.
