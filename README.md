@@ -63,4 +63,9 @@ Create a repository in the Artifact Registry in GCP.
 
 ### GCP Deployment (Cloud Run - Serverless)
 
+1. Build and push the Docker image using the configuration in your cloudbuild.yaml.
+
+2. Deploy to Cloud Run: Use the gcloud commands in your cloudbuild.yaml to deploy your service.
+   
+3. Access the app by visiting the service URL provided by Cloud Run.
 
