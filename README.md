@@ -70,7 +70,7 @@ Create a repository in the Artifact Registry in GCP.
    
 3. Create Cloud Run service with default settings for testing purpose.
 
-4. Deploy to Cloud Run: Use the gcloud commands in your cloudbuild.yaml to deploy your service.
+4. Deploy to Cloud Run: Use the gcloud commands in the cloudbuild.yaml to deploy your service.
    
 5. Access the app by visiting the service URL provided by Cloud Run.
 
